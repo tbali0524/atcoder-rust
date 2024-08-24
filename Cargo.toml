@@ -1,6 +1,17 @@
+# Cargo manifest file for Rust 🦀 solutions.
+# @see https://doc.rust-lang.org/cargo/reference/manifest.html
+
 [package]
 name = "atcoder-rust"
 version = "0.1.0"
+authors = ["Balint Toth"]
 edition = "2021"
+rust-version = "1.70"
+description = "AtCoder solutions in Rust by TBali"
+homepage = "https://atcoder.jp/home"
+repository = "https://github.com/tbali0524/atcoder-rust/"
+license = "MIT"
+keywords = ["atcoder", "algorithms"]
+default-run = "atcoder-rust"
 
 [dependencies]
