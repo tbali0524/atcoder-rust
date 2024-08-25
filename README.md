@@ -2,11 +2,10 @@
 
 ![rust v1.70](https://shields.io/badge/rust-1.70-blue?logo=rust)
 ![build](https://img.shields.io/github/actions/workflow/status/tbali0524/atcoder-rust/qa.yml)
-![license](https://img.shields.io/github/license/tbali0524/advent-of-code-rust)
+![license](https://img.shields.io/github/license/tbali0524/atcoder-rust)
 
 * [AtCoder website](https://atcoder.jp/)
-* My AoC username: `tbali0524`
-* [Puzzle list](puzzles.md) with topics and my completion status (in Rust)
+* My AtCoder username: `TBali`
 * Link to this repo on [GitHub](https://github.com/tbali0524/atcoder-rust)
 
 ## Usage

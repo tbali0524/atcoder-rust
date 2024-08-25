@@ -7,7 +7,7 @@ use std::path;
 use std::time;
 
 const PUZZLE_ID: &str = "abc042_a";
-const TITLE: &str = "AtCoder Beginner Contest 042, A - Iroha and Haiku (ABC Edition)";
+const TITLE: &str = "AtCoder Beginner Contest 042 : Task A - Iroha and Haiku (ABC Edition)";
 const USE_STDIN: bool = false;
 
 fn main() -> Result<(), PuzzleError> {

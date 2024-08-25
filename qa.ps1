@@ -12,6 +12,7 @@ $puzzles = @(
     "practice_a",
     "abc042_a",
     "abc042_b",
+    "abc042_c",
     "abc042_d"
 )
 foreach ($puzzle in $puzzles){

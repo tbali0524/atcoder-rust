@@ -1,4 +1,6 @@
-//! [link](https://atcoder.jp/contests/abc042/tasks/abc042_d)
+//! [link](https://atcoder.jp/contests/abc042/tasks/arc058_b)
+//!
+//! also: [link](https://atcoder.jp/contests/arc058/tasks/arc058_b)
 
 use std::fmt;
 use std::fs;
@@ -7,7 +9,8 @@ use std::path;
 use std::time;
 
 const PUZZLE_ID: &str = "abc042_d";
-const TITLE: &str = "AtCoder Beginner Contest 042, D - Iroha and a Grid";
+const TITLE: &str =
+    "AtCoder Beginner Contest 042 / Regular Contest 058 : Task D - Iroha and a Grid";
 const USE_STDIN: bool = false;
 const MODULUS: usize = 1_000_000_007;
 
@@ -15,7 +18,7 @@ fn main() -> Result<(), PuzzleError> {
     let raw_input = if USE_STDIN {
         read_stdin(1)?
     } else {
-        read_file("1")?
+        read_file("1")? // test case "4" also available, run takes ~6 sec.
     };
     let now = time::Instant::now();
     let input = ParsedInput::try_from(&raw_input)?;
