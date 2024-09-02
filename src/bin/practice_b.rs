@@ -27,11 +27,11 @@ fn main() -> Result<(), PuzzleError> {
         SortAlgorithms::MergeSort => merge_sort(&mut a)?,
     }
     let result = a.iter().collect::<String>();
-    println!("! {}", result);
+    eprintln!("=== {} : {}", PUZZLE_ID, TITLE);
+    println!("{}", result);
     io::stdout()
         .flush()
         .map_err(|_| "error writing to `stdout`")?;
-    eprintln!("=== {} : {}", PUZZLE_ID, TITLE);
     Ok(())
 }
 

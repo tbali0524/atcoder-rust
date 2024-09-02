@@ -1,4 +1,4 @@
-//! [link](https://atcoder.jp/contests/abc042/tasks/abc042_b)
+//! [link](https://atcoder.jp/contests/abc043/tasks/abc043_a)
 
 use std::fmt;
 use std::fs;
@@ -6,13 +6,13 @@ use std::io;
 use std::path;
 use std::time;
 
-const PUZZLE_ID: &str = "abc042_b";
-const TITLE: &str = "AtCoder Beginner Contest 042 : Task B - Iroha Loves Strings (ABC Edition)";
+const PUZZLE_ID: &str = "abc043_a";
+const TITLE: &str = "AtCoder Beginner Contest 043 : Task A - Children and Candies (ABC Edit)";
 const USE_STDIN: bool = false;
 
 fn main() -> Result<(), PuzzleError> {
     let raw_input = if USE_STDIN {
-        read_stdin()?
+        read_stdin(1)?
     } else {
         read_file("1")?
     };
@@ -30,29 +30,15 @@ fn main() -> Result<(), PuzzleError> {
     Ok(())
 }
 
+type ItemType = i32;
 type PuzzleError = &'static str;
 
-fn read_stdin() -> Result<Vec<String>, PuzzleError> {
-    let mut input = Vec::new();
-    let mut input_line = String::new();
+fn read_stdin(count_lines: usize) -> Result<Vec<String>, PuzzleError> {
     io::stdin()
-        .read_line(&mut input_line)
-        .map_err(|_| "error reading input from `stdin`")?;
-    let n = input_line
-        .split_ascii_whitespace()
-        .next()
-        .ok_or("missing `n`")?
-        .parse::<usize>()
-        .map_err(|_| "`n` must be positive integer")?;
-    input.push(input_line.clone());
-    for _ in 1..=n {
-        input_line.clear();
-        io::stdin()
-            .read_line(&mut input_line)
-            .map_err(|_| "error reading input from `stdin`")?;
-        input.push(input_line.trim_end().to_string());
-    }
-    Ok(input)
+        .lines()
+        .take(count_lines)
+        .collect::<Result<Vec<_>, _>>()
+        .map_err(|_| "error reading input from `stdin`")
 }
 
 fn read_file(test_case: &str) -> Result<Vec<String>, PuzzleError> {
@@ -66,34 +52,23 @@ fn read_file(test_case: &str) -> Result<Vec<String>, PuzzleError> {
 
 #[derive(Debug, PartialEq)]
 struct ParsedInput {
-    n: usize,
-    l: usize,
-    s: Vec<String>,
+    n: ItemType,
 }
 
 impl TryFrom<&Vec<String>> for ParsedInput {
     type Error = PuzzleError;
 
     fn try_from(input: &Vec<String>) -> Result<Self, Self::Error> {
-        if input.is_empty() {
-            Err("input must be (n + 1) lines")?
+        if input.len() != 1 {
+            Err("input must be 1 line")?
         }
         let mut line1_iter = input[0].split_ascii_whitespace();
         let n = line1_iter
             .next()
             .ok_or("missing `n`")?
-            .parse::<usize>()
+            .parse::<ItemType>()
             .map_err(|_| "`n` must be positive integer")?;
-        let l = line1_iter
-            .next()
-            .ok_or("missing `l`")?
-            .parse::<usize>()
-            .map_err(|_| "`l` must be positive integer")?;
-        if input.len() != n + 1 {
-            Err("input must be (n + 1) lines")?
-        }
-        let s = input.iter().skip(1).cloned().collect::<Vec<_>>();
-        Ok(ParsedInput { n, l, s })
+        Ok(ParsedInput { n })
     }
 }
 
@@ -108,10 +83,10 @@ impl fmt::Display for PuzzleOutput {
 }
 
 fn solve(input: &ParsedInput) -> Result<PuzzleOutput, PuzzleError> {
-    let mut fragments = input.s.to_vec();
-    fragments.sort();
-    let line = fragments.join("");
-    Ok(PuzzleOutput { line })
+    let ans = (input.n * (input.n + 1)) / 2;
+    Ok(PuzzleOutput {
+        line: ans.to_string(),
+    })
 }
 
 // ------------------------------------------------------------
@@ -121,13 +96,26 @@ mod tests {
 
     #[test]
     fn example1() {
-        let raw_input = vec!["3 3", "dxx", "axx", "cxx"]
-            .iter()
-            .map(|&x| x.to_string())
-            .collect();
+        let raw_input = vec!["3"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input).unwrap();
         let result = solve(&input).unwrap();
-        assert_eq!(result.line, "axxcxxdxx");
+        assert_eq!(result.line, "6");
+    }
+
+    #[test]
+    fn example2() {
+        let raw_input = vec!["10"].iter().map(|&x| x.to_string()).collect();
+        let input = ParsedInput::try_from(&raw_input).unwrap();
+        let result = solve(&input).unwrap();
+        assert_eq!(result.line, "55");
+    }
+
+    #[test]
+    fn example3() {
+        let raw_input = vec!["1"].iter().map(|&x| x.to_string()).collect();
+        let input = ParsedInput::try_from(&raw_input).unwrap();
+        let result = solve(&input).unwrap();
+        assert_eq!(result.line, "1");
     }
 
     #[test]
@@ -135,7 +123,7 @@ mod tests {
         let raw_input = read_file("1").unwrap();
         let input = ParsedInput::try_from(&raw_input).unwrap();
         let result = solve(&input).unwrap();
-        assert_eq!(result.line, "axxcxxdxx");
+        assert_eq!(result.line, "6");
     }
 
     #[test]
@@ -146,9 +134,9 @@ mod tests {
 
     #[test]
     fn invalid_input_line_count() {
-        let raw_input = vec!["3 3", "dxx"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = vec!["3", "1"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input);
-        assert_eq!(input, Err("input must be (n + 1) lines"));
+        assert_eq!(input, Err("input must be 1 line"));
     }
 
     #[test]
@@ -159,26 +147,9 @@ mod tests {
     }
 
     #[test]
-    fn invalid_input_missing_l() {
-        let raw_input = vec!["3"].iter().map(|&x| x.to_string()).collect();
-        let input = ParsedInput::try_from(&raw_input);
-        assert_eq!(input, Err("missing `l`"));
-    }
-
-    #[test]
     fn invalid_input_integer_n() {
-        let raw_input = vec!["a 3"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = vec!["a 5 7"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input);
         assert_eq!(input, Err("`n` must be positive integer"));
-    }
-
-    #[test]
-    fn invalid_input_integer_l() {
-        let raw_input = vec!["3 l", "dxx", "axx", "cxx"]
-            .iter()
-            .map(|&x| x.to_string())
-            .collect();
-        let input = ParsedInput::try_from(&raw_input);
-        assert_eq!(input, Err("`l` must be positive integer"));
     }
 }

@@ -20,13 +20,13 @@ fn main() -> Result<(), PuzzleError> {
     let input = ParsedInput::try_from(&raw_input)?;
     let result = solve(&input)?;
     let elapsed = now.elapsed();
-    println!("{}", result);
     eprintln!(
         "=== {} [time: {} ms] : {}",
         PUZZLE_ID,
         elapsed.as_millis(),
         TITLE
     );
+    println!("{}", result);
     Ok(())
 }
 

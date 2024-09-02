@@ -13,8 +13,12 @@ $puzzles = @(
     "abc042_a",
     "abc042_b",
     "abc042_c",
-    "abc042_d"
+    "abc042_d",
+    "abc043_a",
+    "abc043_b",
+    "abc043_c"
 )
 foreach ($puzzle in $puzzles){
     & "./target/release/$puzzle.exe"
 }
+Write-Host("==========")
