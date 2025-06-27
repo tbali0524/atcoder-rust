@@ -28,7 +28,7 @@ fn main() -> Result<(), PuzzleError> {
         elapsed.as_millis(),
         TITLE
     );
-    println!("{}", result);
+    println!("{result}");
     Ok(())
 }
 
@@ -44,7 +44,7 @@ fn read_stdin(count_lines: usize) -> Result<Vec<String>, PuzzleError> {
 }
 
 fn read_file(test_case: &str) -> Result<Vec<String>, PuzzleError> {
-    let input_path = format!("./input/{}_{}.txt", PUZZLE_ID, test_case);
+    let input_path = format!("./input/{PUZZLE_ID}_{test_case}.txt");
     Ok(fs::read_to_string(path::Path::new(&input_path))
         .map_err(|_| "error reading input from file")?
         .lines()
@@ -110,7 +110,7 @@ mod tests {
 
     #[test]
     fn example1() {
-        let raw_input = vec!["2", "4 8"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["2", "4 8"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input).unwrap();
         let result = solve(&input).unwrap();
         assert_eq!(result.line, "8");
@@ -118,7 +118,7 @@ mod tests {
 
     #[test]
     fn example2() {
-        let raw_input = vec!["3", "1 1 3"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["3", "1 1 3"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input).unwrap();
         let result = solve(&input).unwrap();
         assert_eq!(result.line, "3");
@@ -126,7 +126,7 @@ mod tests {
 
     #[test]
     fn example3() {
-        let raw_input = vec!["3", "4 2 5"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["3", "4 2 5"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input).unwrap();
         let result = solve(&input).unwrap();
         assert_eq!(result.line, "5");
@@ -134,7 +134,7 @@ mod tests {
 
     #[test]
     fn example4() {
-        let raw_input = vec!["4", "-100 -100 -100 -100"]
+        let raw_input = ["4", "-100 -100 -100 -100"]
             .iter()
             .map(|&x| x.to_string())
             .collect();
@@ -159,21 +159,21 @@ mod tests {
 
     #[test]
     fn invalid_input_line_count() {
-        let raw_input = vec!["2"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["2"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input);
         assert_eq!(input, Err("input must be 2 lines"));
     }
 
     #[test]
     fn invalid_input_integer_n() {
-        let raw_input = vec!["a", "4 8"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["a", "4 8"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input);
         assert_eq!(input, Err("`n` must be positive integer"));
     }
 
     #[test]
     fn invalid_input_integer_list_item() {
-        let raw_input = vec!["2", "4 a"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["2", "4 a"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input);
         assert_eq!(input, Err("list items must be integers"));
     }

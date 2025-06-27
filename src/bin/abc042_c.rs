@@ -29,7 +29,7 @@ fn main() -> Result<(), PuzzleError> {
         elapsed.as_millis(),
         TITLE
     );
-    println!("{}", result);
+    println!("{result}");
     Ok(())
 }
 
@@ -45,7 +45,7 @@ fn read_stdin(count_lines: usize) -> Result<Vec<String>, PuzzleError> {
 }
 
 fn read_file(test_case: &str) -> Result<Vec<String>, PuzzleError> {
-    let input_path = format!("./input/{}_{}.txt", PUZZLE_ID, test_case);
+    let input_path = format!("./input/{PUZZLE_ID}_{test_case}.txt");
     Ok(fs::read_to_string(path::Path::new(&input_path))
         .map_err(|_| "error reading input from file")?
         .lines()
@@ -131,7 +131,7 @@ mod tests {
 
     #[test]
     fn example1() {
-        let raw_input = vec!["1000 8", "1 3 4 5 6 7 8 9"]
+        let raw_input = ["1000 8", "1 3 4 5 6 7 8 9"]
             .iter()
             .map(|&x| x.to_string())
             .collect();
@@ -156,7 +156,7 @@ mod tests {
 
     #[test]
     fn invalid_input_line_count() {
-        let raw_input = vec!["1000 8", "1 3 4 5 6 7 8 9", "1"]
+        let raw_input = ["1000 8", "1 3 4 5 6 7 8 9", "1"]
             .iter()
             .map(|&x| x.to_string())
             .collect();
@@ -166,7 +166,7 @@ mod tests {
 
     #[test]
     fn invalid_input_missing_n() {
-        let raw_input = vec!["", "1 3 4 5 6 7 8 9"]
+        let raw_input = ["", "1 3 4 5 6 7 8 9"]
             .iter()
             .map(|&x| x.to_string())
             .collect();
@@ -176,7 +176,7 @@ mod tests {
 
     #[test]
     fn invalid_input_missing_k() {
-        let raw_input = vec!["1000", "1 3 4 5 6 7 8 9"]
+        let raw_input = ["1000", "1 3 4 5 6 7 8 9"]
             .iter()
             .map(|&x| x.to_string())
             .collect();
@@ -186,7 +186,7 @@ mod tests {
 
     #[test]
     fn invalid_input_integer_n() {
-        let raw_input = vec!["n 8", "1 3 4 5 6 7 8 9"]
+        let raw_input = ["n 8", "1 3 4 5 6 7 8 9"]
             .iter()
             .map(|&x| x.to_string())
             .collect();
@@ -196,7 +196,7 @@ mod tests {
 
     #[test]
     fn invalid_input_integer_k() {
-        let raw_input = vec!["1000 k", "1 3 4 5 6 7 8 9"]
+        let raw_input = ["1000 k", "1 3 4 5 6 7 8 9"]
             .iter()
             .map(|&x| x.to_string())
             .collect();
@@ -206,7 +206,7 @@ mod tests {
 
     #[test]
     fn invalid_input_integer_list_d() {
-        let raw_input = vec!["1000 8", "1 a 4 5 6 7 8 9"]
+        let raw_input = ["1000 8", "1 a 4 5 6 7 8 9"]
             .iter()
             .map(|&x| x.to_string())
             .collect();
@@ -216,7 +216,7 @@ mod tests {
 
     #[test]
     fn invalid_input_decimal_digit_list_d() {
-        let raw_input = vec!["1000 8", "1 31 4 5 6 7 8 9"]
+        let raw_input = ["1000 8", "1 31 4 5 6 7 8 9"]
             .iter()
             .map(|&x| x.to_string())
             .collect();

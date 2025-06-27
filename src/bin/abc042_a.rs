@@ -26,7 +26,7 @@ fn main() -> Result<(), PuzzleError> {
         elapsed.as_millis(),
         TITLE
     );
-    println!("{}", result);
+    println!("{result}");
     Ok(())
 }
 
@@ -42,7 +42,7 @@ fn read_stdin(count_lines: usize) -> Result<Vec<String>, PuzzleError> {
 }
 
 fn read_file(test_case: &str) -> Result<Vec<String>, PuzzleError> {
-    let input_path = format!("./input/{}_{}.txt", PUZZLE_ID, test_case);
+    let input_path = format!("./input/{PUZZLE_ID}_{test_case}.txt");
     Ok(fs::read_to_string(path::Path::new(&input_path))
         .map_err(|_| "error reading input from file")?
         .lines()
@@ -111,7 +111,7 @@ mod tests {
 
     #[test]
     fn example1() {
-        let raw_input = vec!["5 5 7"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["5 5 7"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input).unwrap();
         let result = solve(&input).unwrap();
         assert_eq!(result.line, "YES");
@@ -119,7 +119,7 @@ mod tests {
 
     #[test]
     fn example2() {
-        let raw_input = vec!["7 7 5"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["7 7 5"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input).unwrap();
         let result = solve(&input).unwrap();
         assert_eq!(result.line, "NO");
@@ -141,49 +141,49 @@ mod tests {
 
     #[test]
     fn invalid_input_line_count() {
-        let raw_input = vec!["5 5 7", "1"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["5 5 7", "1"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input);
         assert_eq!(input, Err("input must be 1 line"));
     }
 
     #[test]
     fn invalid_input_missing_a() {
-        let raw_input = vec![""].iter().map(|&x| x.to_string()).collect();
+        let raw_input = [""].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input);
         assert_eq!(input, Err("missing `a`"));
     }
 
     #[test]
     fn invalid_input_missing_b() {
-        let raw_input = vec!["5"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["5"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input);
         assert_eq!(input, Err("missing `b`"));
     }
 
     #[test]
     fn invalid_input_missing_c() {
-        let raw_input = vec!["5 7"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["5 7"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input);
         assert_eq!(input, Err("missing `c`"));
     }
 
     #[test]
     fn invalid_input_integer_a() {
-        let raw_input = vec!["a 5 7"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["a 5 7"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input);
         assert_eq!(input, Err("`a` must be positive integer"));
     }
 
     #[test]
     fn invalid_input_integer_b() {
-        let raw_input = vec!["5 b 7"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["5 b 7"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input);
         assert_eq!(input, Err("`b` must be positive integer"));
     }
 
     #[test]
     fn invalid_input_integer_c() {
-        let raw_input = vec!["5 7 c"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["5 7 c"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input);
         assert_eq!(input, Err("`c` must be positive integer"));
     }

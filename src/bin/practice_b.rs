@@ -27,8 +27,8 @@ fn main() -> Result<(), PuzzleError> {
         SortAlgorithms::MergeSort => merge_sort(&mut a)?,
     }
     let result = a.iter().collect::<String>();
-    eprintln!("=== {} : {}", PUZZLE_ID, TITLE);
-    println!("{}", result);
+    eprintln!("=== {PUZZLE_ID} : {TITLE}");
+    println!("{result}");
     io::stdout()
         .flush()
         .map_err(|_| "error writing to `stdout`")?;

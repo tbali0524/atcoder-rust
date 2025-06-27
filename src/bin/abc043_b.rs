@@ -26,7 +26,7 @@ fn main() -> Result<(), PuzzleError> {
         elapsed.as_millis(),
         TITLE
     );
-    println!("{}", result);
+    println!("{result}");
     Ok(())
 }
 
@@ -41,7 +41,7 @@ fn read_stdin(count_lines: usize) -> Result<Vec<String>, PuzzleError> {
 }
 
 fn read_file(test_case: &str) -> Result<Vec<String>, PuzzleError> {
-    let input_path = format!("./input/{}_{}.txt", PUZZLE_ID, test_case);
+    let input_path = format!("./input/{PUZZLE_ID}_{test_case}.txt");
     Ok(fs::read_to_string(path::Path::new(&input_path))
         .map_err(|_| "error reading input from file")?
         .lines()
@@ -101,7 +101,7 @@ mod tests {
 
     #[test]
     fn example1() {
-        let raw_input = vec!["01B0"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["01B0"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input).unwrap();
         let result = solve(&input).unwrap();
         assert_eq!(result.line, "00");
@@ -109,7 +109,7 @@ mod tests {
 
     #[test]
     fn example2() {
-        let raw_input = vec!["0BB1"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["0BB1"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input).unwrap();
         let result = solve(&input).unwrap();
         assert_eq!(result.line, "1");
@@ -131,14 +131,14 @@ mod tests {
 
     #[test]
     fn invalid_input_line_count() {
-        let raw_input = vec!["0BB1", "1"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["0BB1", "1"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input);
         assert_eq!(input, Err("input must be 1 line"));
     }
 
     #[test]
     fn invalid_input_only_01b_allowed() {
-        let raw_input = vec!["0BAB1"].iter().map(|&x| x.to_string()).collect();
+        let raw_input = ["0BAB1"].iter().map(|&x| x.to_string()).collect();
         let input = ParsedInput::try_from(&raw_input).unwrap();
         let result = solve(&input);
         assert_eq!(result, Err("invalid character in input"));
